@@ -1,168 +1,267 @@
-/* General styles */
+:root {
+    --bg-color: #FFE4F1;        /* Very soft pastel pink */
+    --text-color: #3B0A45;      /* Deep plum for headings */
+    --nav-text-color: #7A3C70;  /* Lighter plum for nav text */
+    --card-color: #FFB8DE;      /* Light blush pink */
+    --box-color: #FFD0E5;       /* Soft pink for inner boxes */
+    --header-color: #F47DBF;    /* Candy pink header */
+    --link-color: #d90368;     /* Muted magenta for links */
+    --link-hover: #D65BA1;      /* Brighter pink-purple on hover */
+    --btn-primary: #FFD0E5;     /* Match the box color */
+    --btn-hover: #F8A9CE;       /* Slightly darker for hover */
+    --btn-success: #A8E6CF;     /* Soft mint */
+    --btn-warning: #FFE599;     /* Soft yellow */
+    --btn-danger: #FF9AA2;      /* Light red-pink */
+    --btn-info: #a2d2ff;        /* Lavender info */
+    --footer-bg: #FFB8DE;       /* Match card for consistency */      /* Match link color */
+}
+
+
+
+body.dark-mode {
+    --bg-color: #5a189a;
+    --text-color: #F0E6FF;;
+    --card-color: #a562e4;
+    --box-color: #7b2cbf;
+    --header-color: #3c096c;
+    --link-color: #BBADFF;
+    --link-hover: #DAB6FC;
+    --btn-primary: #7b2cbf;
+    --btn-hover: #9B00CC;
+    --btn-success: #7CE8D5;
+    --btn-warning: #FFD86A;
+    --btn-danger: #FF6F91;
+    --btn-info: #a2d2ff;
+    --footer-bg: #35007A;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fef6f0;
-    color: #555;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1; /* This allows it to take up remaining vertical space */
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
+    animation: fadeIn 1s ease-in;
+    font-weight: 1000;
 }
 
-/* Header styles */
-header {
-    background-color: #e2ece9;
-    color: #444;
-    padding: 1.5rem;
-    text-align: center;
-    border-bottom: 2px solid #d3d3d3;
+/* The element fades in and slides up slightly over 1 second */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); } /* at opacity 0 element goes down*/
+    to { opacity: 1; transform: translateY(0); }
 }
 
-h1, h2 {
-    font-weight: 600;
+h1, h2, h3, h4, h5, h6, p, span, label, .task-title, .nav-links a, .btn, .form-label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 1000;
 }
 
-/* Container styling */
+.task-description {
+    font-weight: normal;
+}
+
+header.navbar {
+    background-color: var(--header-color);
+    color: var(--text-color);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+}
+
+.nav-title {
+    font-size: 2.3rem;
+    color: var(--link-color);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 1000;
+}
+
+.nav-links a {
+    margin-left: 20px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--link-color);
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--link-hover);
+}
+
 .container {
     max-width: 900px;
-    margin: auto;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.task-list, .add-task-form, .update-task-form {
+    background-color: var(--card-color);
     padding: 30px;
-}
-
-/* Reusable Card Styling */
-.add-task-form, .update-task-form, .task-list {
-    background-color: #ffffff;
-    padding: 25px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.08);
-    border-radius: 16px;
+    border-radius: 30px;
+    box-shadow: 0 8px 24px rgba(255, 182, 185, 0.2);
     margin-bottom: 30px;
+    transition: box-shadow 0.3s ease; /* transitions to box-shadow gradually instead of instant*/
+    color: var(--text-color);
 }
 
-/* Form Fields */
+.task-item {
+    background-color: var(--box-color);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-color);
+}
+
 .form-label {
-    font-weight: 500;
+    font-weight: 1000;
+    color: var(--text-color);
 }
 
 .form-control {
     margin-bottom: 15px;
-    padding: 10px;
+    padding: 14px;
     font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: #fafafa;
-}
-
-/* Buttons */
-button, .btn {
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: none;
-    font-weight: 500;
-    transition: 0.3s ease;
-}
-
-.btn-primary, .add-task-form button, .update-task-form button {
-    background-color: #a0d2eb;
+    border-radius: 25px;
+    border: 2px solid var(--link-color);
+    background-color: #2D2D44;
     color: #fff;
+    transition: border-color 0.3s;
+    font-weight: 1000;
+}
+
+.form-control:focus {
+    border-color: var(--btn-hover);
+    outline: none;
+}
+
+.btn {
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 1000;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--btn-primary);
+    color: var(--text-color);
 }
 
 .btn-primary:hover {
-    background-color: #87c2e0;
+    background-color: var(--btn-hover);
+    transform: scale(1.05);
 }
 
+
 .btn-success {
-    background-color: #c3aed6;
-    color: #fff;
+    background-color: var(--btn-success);
+    color: var(--text-color);
 }
 
 .btn-success:hover {
-    background-color: #b09bc9;
+    background-color: #94dbc0;
+    transform: scale(1.05);
 }
 
 .btn-outline-warning {
-    background-color: #ffdac1;
-    color: #333;
-    border: none;
+    background-color: var(--btn-warning);
+    color: var(--text-color);
 }
 
 .btn-outline-warning:hover {
-    background-color: #ffc8a2;
+    background-color: #ffbe95;
+    transform: scale(1.05);
+    color: white;
 }
 
 .btn-outline-danger {
-    background-color: #ffb6b9;
-    color: #fff;
+    background-color: var(--btn-danger);
+    color: var(--text-color)
 }
 
 .btn-outline-danger:hover {
-    background-color: #f99ca0;
+    background-color: #ff6f7c;
+    transform: scale(1.05);
 }
 
 .btn-outline-info {
-    background-color: #fcd5ce;
-    color: #333;
+    background-color: var(--btn-info);
+    color: var(--text-color);
 }
 
 .btn-outline-info:hover {
-    background-color: #fbb1bd;
+    background-color: #a0dce6;
+    transform: scale(1.05);
+    color: white;
 }
+
 
 .btn-link {
-    color: #a0d2eb;
-    text-decoration: none;
+    color: var(--link-color);
 }
-
 .btn-link:hover {
-    color: #87c2e0;
-    text-decoration: underline;
-}
-
-/* Task Items */
-.task-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fdfdfd;
-    padding: 15px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    border: 1px solid #e8e8e8;
+    color: var(--link-hover);
 }
 
 .task-title {
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-.task-description {
-    font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 6px;
+    font-weight: 1000;
+    font-size: 1.2rem;
+    color: var(--text-color);
 }
 
 .completed {
-    background-color: #b5ead7;
-    color: #2b2b2b;
-    padding: 5px 12px;
-    border-radius: 20px;
+    background-color: #e7c6ff;
+    color: #45007A;
+    padding: 6px 12px;
+    border-radius: 50px;
     font-size: 0.85rem;
-    display: inline-block;
-    margin-top: 5px;
+    font-weight: 1000;
 }
 
-/* Footer */
 footer {
-    background-color: #e2ece9;
-    color: #555;
+    background-color: var(--footer-bg);
+    color: var(--text-color);
     padding: 20px;
     text-align: center;
-    border-top: 2px solid #d3d3d3;
-    margin-top: 50px;
+    margin-top: 100px;
+    font-size: 0.9rem;
+    font-weight: normal;
+    font-family: sans-serif;
 }
 
 footer a {
-    color: #a0d2eb;
+    color: var(--link-color);
     text-decoration: none;
 }
 
 footer a:hover {
-    color: #87c2e0;
+    color: var(--link-hover);
 }
