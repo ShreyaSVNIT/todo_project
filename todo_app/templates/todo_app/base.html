@@ -1,0 +1,71 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% now "U" as timestamp %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}To-Do App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v={{ timestamp }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+
+    
+</head>
+<body>
+    <header class="navbar">
+        <a href="{% url 'task_list' %}" class="nav-title" style="text-decoration: none;">My To-Do List</a>
+
+
+        <nav class="nav-links">
+            {% if user.is_authenticated %}
+                <span>Hello, {{ user.username }}!</span>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link" style="padding: 0; font-weight: bold;">Logout</button>
+                </form>
+                
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Sign Up</a>
+            {% endif %}
+            <button id="theme-toggle" class="btn" style="margin-left: 20px;">💜</button>
+
+        </nav>
+    </header>
+
+
+    <div class="container mt-5">
+        {% bootstrap_messages %}
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <br>
+
+    <footer>
+        <p>&copy; {% now 'Y' %} Your To-Do List App | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+    
+        // Load user's theme preference
+        if (localStorage.getItem('dark-mode') === 'true') {
+            body.classList.add('dark-mode');
+            toggleButton.textContent = '🎀 ';
+        }
+    
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('dark-mode', isDark);
+            toggleButton.textContent = isDark ? '🎀' : '💜';
+        });
+    </script>    
+</body>
+</html>
